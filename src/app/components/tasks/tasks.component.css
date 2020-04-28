@@ -10,3 +10,27 @@
 .empty {
     color: grey;
 }
+
+.col-color {
+    width: 3%;
+}
+
+.col-position {
+    width: 7%;
+}
+
+.col-name {
+    width: 40%;
+}
+
+.col-category {
+    width: 20%;
+}
+
+.col-priority {
+    width: 20%;
+}
+
+.col-status {
+    width: 10%;
+}
