@@ -1,0 +1,12 @@
+.status{
+    border: 1px solid black;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: grey;
+}
+
+.empty {
+    color: grey;
+}
