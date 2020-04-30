@@ -40,7 +40,7 @@ export class TasksComponent implements OnInit {
       return task.priority.color
     }
     else {
-      return '#fff'
+      return '#b5b0b4'
     }
   }
 
