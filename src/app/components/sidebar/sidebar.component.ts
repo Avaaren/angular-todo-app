@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {DataHandlerService} from '../../services/data-handler.service'
 import { Category } from 'src/app/models/Category';
 import { Task } from 'src/app/models/Task';
@@ -11,17 +11,29 @@ import { Task } from 'src/app/models/Task';
 export class SidebarComponent implements OnInit {
 
   currentCategory: Category;
+
+  @Output()
+  selectCategory = new EventEmitter<Category>();
+
+  @Input()
   categories: Category[];
+
   tasks: Task[];
 
   constructor(private dataHandler: DataHandlerService ) { }
 
   ngOnInit() {
-    this.dataHandler.categorySubject.subscribe( categories => this.categories = categories);
+    
 
   }
   showTasksByCategory(category: Category){
-    this.currentCategory = category;
-    this.dataHandler.getTasksByCategory(category)
+    
+    if (this.currentCategory === category){
+      return;
+    }
+
+    this.currentCategory = category
+
+    this.selectCategory.emit(this.currentCategory);
   }
 }
