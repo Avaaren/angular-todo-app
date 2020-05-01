@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Category } from '../models/Category';
 import { TestData } from '../data/TestData';
 import { Task } from '../models/Task';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+import { CategoryDAOImplement } from '../data/dao/implements/CategoryDAOImpement';
+import { TaskDAOImplement } from '../data/dao/implements/TaskDAOImpement';
+import { Priority } from '../models/Priority';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +16,27 @@ export class DataHandlerService {
   taskSubject = new BehaviorSubject<Task[]>(TestData.tasks);
   categorySubject = new BehaviorSubject<Category[]>(TestData.categories);
 
+  categoryImplementation = new CategoryDAOImplement();
+  taskImplementation = new TaskDAOImplement();
   constructor() {
 
    }
 
+   getAllCategories(): Observable<Category[]> {
+    return this.categoryImplementation.getAll();
+   }
 
-   getTasksByCategory(category: Category){
-     const task = TestData.tasks.filter(task => task.category === category);
-     this.taskSubject.next(task)
-  }
+   getAllTasks(): Observable<Task[]>{
+     return this.taskImplementation.getAll();
+   }
+   
+   // This method needed for calling by component. It observable task array by redirect for DAO method
+   findTask(query: string, category: Category, priority: Priority, status: boolean): Observable<Task[]>{
+    return this.taskImplementation.find(
+      null,
+      category,
+      null,
+      null,
+    );
+   }
 }
