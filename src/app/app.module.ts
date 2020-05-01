@@ -9,12 +9,15 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import{ MatTableModule } from '@angular/material/table';
 import{ MatSortModule } from '@angular/material/sort';
 import{ MatPaginatorModule } from '@angular/material/paginator';
+import{ MatDialogModule } from '@angular/material/dialog';
+import { EditTaskDialogComponent } from './components/dialog/edit-task-dialog/edit-task-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    TasksComponent
+    TasksComponent,
+    EditTaskDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -22,8 +25,12 @@ import{ MatPaginatorModule } from '@angular/material/paginator';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatDialogModule,
   ],
   providers: [],
+  entryComponents: [
+    EditTaskDialogComponent,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
