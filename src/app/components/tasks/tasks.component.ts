@@ -4,6 +4,8 @@ import { Task } from 'src/app/models/Task';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { EditTaskDialogComponent } from '../dialog/edit-task-dialog/edit-task-dialog.component';
 
 @Component({
   selector: 'app-tasks',
@@ -14,7 +16,7 @@ export class TasksComponent implements OnInit {
 
   private tasks: Task[];
 
-// Every time when tasks changed we update data source and paginator with new data
+  // Every time when tasks changed we update data source and paginator with new data
   @Input('tasks')
   private set setTasks(tasks: Task[]) {
     this.tasks = tasks;
@@ -27,7 +29,9 @@ export class TasksComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private dataHandler: DataHandlerService) { }
+  constructor(private dataHandler: DataHandlerService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
 
@@ -38,6 +42,15 @@ export class TasksComponent implements OnInit {
 
   ngAfterViewInit() {
     this.fillTable();
+  }
+
+  openEdtiTaskDialog(task: Task): void {
+    // Open dialog window. First arg - ref for component or html template,
+    // second arg - config - in {}. Data is passing in Component 
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Редактирование задачи'], autoFocus: false });
+    // When window is closed - this method runs and get result. 
+    // We can make some actions or handle result (what we return from dialog window) in {}
+    dialogRef.afterClosed().subscribe(result =>{});
   }
 
   getPriorityColor(task: Task) {
@@ -56,7 +69,7 @@ export class TasksComponent implements OnInit {
 
   fillTable() {
     // If datasource is undefined
-    if (!this.dataSource){
+    if (!this.dataSource) {
       return;
     }
 
