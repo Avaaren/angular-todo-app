@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { DataHandlerService } from 'src/app/services/data-handler.service';
 import { Task } from 'src/app/models/Task';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,31 +12,36 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class TasksComponent implements OnInit {
 
-  tasks: Task[];
+  private tasks: Task[];
+
+// Every time when tasks changed we update data source and paginator with new data
+  @Input('tasks')
+  private set setTasks(tasks: Task[]) {
+    this.tasks = tasks;
+    this.fillTable();
+  }
 
   columnsToDisplay: string[] = ['color', 'position', 'name', 'category', 'priority', 'date'];
   dataSource: MatTableDataSource<Task>;
 
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator:MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private dataHandler: DataHandlerService) { }
 
   ngOnInit() {
-    this.dataHandler.taskSubject.subscribe(tasks => this.tasks = tasks);
 
     this.dataSource = new MatTableDataSource();
 
-    this.refreshTable();
+    this.fillTable();
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+  ngAfterViewInit() {
+    this.fillTable();
   }
 
   getPriorityColor(task: Task) {
-    if (task.priority && task.priority.color ){
+    if (task.priority && task.priority.color) {
       return task.priority.color
     }
     else {
@@ -48,18 +53,25 @@ export class TasksComponent implements OnInit {
     task.is_completed = !task.is_completed;
   }
 
-  refreshTable() {
+
+  fillTable() {
+    // If datasource is undefined
+    if (!this.dataSource){
+      return;
+    }
+
     this.dataSource.data = this.tasks;
+    this.addTableComponents();
     this.dataSource.sortingDataAccessor = (task, property) => {
 
       switch (property) {
 
-        case 'name':{
+        case 'name': {
           return task.title;
         }
 
         case 'category': {
-          return task.category ? task.category.name : null; 
+          return task.category ? task.category.name : null;
         }
 
         case 'date': {
@@ -69,12 +81,17 @@ export class TasksComponent implements OnInit {
         }
 
         case 'priority': {
-          return task.priority ? task.priority.name : null; 
+          return task.priority ? task.priority.name : null;
         }
 
       }
 
     };
 
+  }
+
+  addTableComponents() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 }
