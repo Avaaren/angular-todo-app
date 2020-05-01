@@ -24,7 +24,7 @@
 
           <ng-container matColumnDef='name'>
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Название</th>
-            <td class='col-name' mat-cell *matCellDef='let task' [class.completed]="task.is_completed">
+            <td class='col-name' (click)='openEdtiTaskDialog(task)' mat-cell *matCellDef='let task' [class.completed]="task.is_completed">
 
               {{ task.title }}
 
