@@ -1,7 +1,7 @@
     <mat-dialog-content>
         <p mat-dialog-title>{{dialogTitle}}</p>
     
-        <!--название задачи    -->
+        <!--Task name edit field -->
         <mat-form-field>
     
             <mat-label>Название (обязательно)</mat-label>
@@ -9,10 +9,7 @@
                 #inputTitle
                 matInput
                 [(ngModel)]="tmpTitle"
-                (keydown.enter)="onConfirm()"
-    
-                > <!-- по нажатию на enter можем сразу сохранить задачу -->
-    
+                (keydown.enter)="onConfirm()">
 
         <button *ngIf="tmpTitle.trim().length > 0" mat-button matSuffix mat-icon-button aria-label="Clear"
             (click)="tmpTitle='' ">
@@ -21,6 +18,28 @@
         </button>
 
     </mat-form-field>
+<!-- Category choise field -->
+    <mat-form-field>
+    
+        <mat-label>Категория</mat-label>
+        <mat-select [(ngModel)]='tmpCategory'>
+            <mat-option [value]='null'>Без категории</mat-option>
+            <mat-option *ngFor='let category of categories' [value]='category'>{{ category.name }}</mat-option>
+        </mat-select>
+        
+    </mat-form-field>
+
+<!-- Priority choise field -->
+    <mat-form-field>
+    
+        <mat-label>Приоритет</mat-label>
+        <mat-select [(ngModel)]='tmpPriority'>
+            <mat-option [value]='null'>Без приоритета</mat-option>
+            <mat-option *ngFor='let priority of priorities' [value]='priority'>{{ priority.name }}</mat-option>
+        </mat-select>
+        
+    </mat-form-field>
+
 </mat-dialog-content>
 
 <mat-dialog-actions>
