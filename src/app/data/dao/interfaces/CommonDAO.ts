@@ -6,7 +6,7 @@ export interface CommonDAO<T> {
 
     get(id: number): Observable<T>;
 
-    update(id: number): Observable<T>;
+    update(T): Observable<T>;
 
     delete(id : number): Observable<T>;
 
