@@ -38,4 +38,15 @@ export class AppComponent implements OnInit{
     ).subscribe(tasks => this.tasks = tasks);
   }
 
+  onTaskUpdate(task: Task){
+    this.dataHandler.updateTask(task).subscribe(tasks => {
+      this.dataHandler.findTask(
+        null,
+        this.selectedCategory,
+        null,
+        null
+      ).subscribe(tasks => this.tasks=tasks);
+    });
+  }
+
 }
