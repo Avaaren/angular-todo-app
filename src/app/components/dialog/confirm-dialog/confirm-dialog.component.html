@@ -1,0 +1,15 @@
+<mat-dialog-content>
+    <p mat-dialog-title>{{dialogTitle}}</p>
+    <p>{{ message }}</p>
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+
+    <button mat-raised-button color='red' (click)="onConfirm()">
+        Да
+    </button>
+
+    <button mat-raised-button (click)="onCancel()">Отмена</button>
+
+</mat-dialog-actions>
