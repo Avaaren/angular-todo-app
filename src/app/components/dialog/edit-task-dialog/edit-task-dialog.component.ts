@@ -22,11 +22,21 @@ export class EditTaskDialogComponent implements OnInit {
 
     dialogTitle: string;
     task: Task;
+    tmpTitle: string;
 
   ngOnInit(): void {
     // Passing into variables data, passed from parent component
     this.dialogTitle = this.data[1];
     this.task = this.data[0];
+    this.tmpTitle = this.task.title;
   }
 
+  onConfirm(){
+    this.task.title = this.tmpTitle;
+    this.dialogRef.close(this.task)
+  }
+
+  onCancel(){
+    this.dialogRef.close(null);
+  }
 }
