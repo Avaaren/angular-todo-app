@@ -45,4 +45,8 @@ export class DataHandlerService {
    updateTask(task: Task){
     return this.taskImplementation.update(task);
    }
+
+   deleteTask(task:Task){
+     return this.taskImplementation.delete(task.id);
+   }
 }
