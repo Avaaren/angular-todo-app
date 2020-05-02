@@ -26,7 +26,6 @@ export class TasksComponent implements OnInit {
   @Output()
   updateTask = new EventEmitter<Task>();
   deleteTask = new EventEmitter<Task>();
-  toggleTask = new EventEmitter<Task>();
   
   columnsToDisplay: string[] = ['color', 'position', 'name', 'category', 'priority', 'date'];
   dataSource: MatTableDataSource<Task>;
