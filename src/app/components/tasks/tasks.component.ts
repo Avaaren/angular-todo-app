@@ -25,7 +25,8 @@ export class TasksComponent implements OnInit {
 
   @Output()
   updateTask = new EventEmitter<Task>();
-
+  deleteTask = new EventEmitter<Task>();
+  toggleTask = new EventEmitter<Task>();
   
   columnsToDisplay: string[] = ['color', 'position', 'name', 'category', 'priority', 'date'];
   dataSource: MatTableDataSource<Task>;
@@ -55,6 +56,10 @@ export class TasksComponent implements OnInit {
     // When window is closed - this method runs and get result. 
     // We can make some actions or handle result (what we return from dialog window) in {}
     dialogRef.afterClosed().subscribe(result =>{
+      if (result == 'delete'){
+        this.deleteTask.emit(task);
+      }
+
       if (result as Task){
         this.updateTask.emit(result);
         return;
