@@ -50,6 +50,12 @@
 
     <button mat-raised-button (click)="onCancel()">Отмена</button>
 
+    <button mat-raised-button (click)="onToggleStatus()"
+    *ngIf="task.is_completed">Активировать задачу</button>
+
+    <button mat-raised-button (click)="onToggleStatus()"
+    *ngIf="!task.is_completed">Деактивировать задачу</button>
+
     <button mat-raised-button (click)="onDelete(task)">Удалить задачу</button>
 
 </mat-dialog-actions>
