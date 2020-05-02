@@ -75,7 +75,13 @@
     <div class="content">
       <div class="container-fluid">
         
-    <app-tasks [tasks]='tasks' (updateTask)='onTaskUpdate($event)'></app-tasks>
+    <app-tasks [tasks]='tasks' 
+    (updateTask)='onTaskUpdate($event)'
+    (deleteTask)='onTaskDelete($event)'
+    (toggleTask)='onTaskToggle($event)'
+    
+    
+    ></app-tasks>
         
       </div>
     </div>
