@@ -39,4 +39,8 @@ export class DataHandlerService {
       null,
     );
    }
+
+   updateTask(task: Task){
+    return this.taskImplementation.update(task);
+   }
 }
