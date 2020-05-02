@@ -25,7 +25,6 @@ export class EditTaskDialogComponent implements OnInit {
 
   dialogTitle: string;
   task: Task;
-
   tmpTitle: string;
   tmpCategory: Category;
   tmpPriority: Priority;
@@ -74,5 +73,10 @@ export class EditTaskDialogComponent implements OnInit {
         return;
       }
     });
+  }
+
+  onToggleStatus(){
+    this.task.is_completed = !this.task.is_completed;
+    this.dialogRef.close(this.task);
   }
 }
