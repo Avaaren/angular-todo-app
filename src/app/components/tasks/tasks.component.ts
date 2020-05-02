@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { DataHandlerService } from 'src/app/services/data-handler.service';
 import { Task } from 'src/app/models/Task';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,6 +23,10 @@ export class TasksComponent implements OnInit {
     this.fillTable();
   }
 
+  @Output()
+  updateTask = new EventEmitter<Task>();
+
+  
   columnsToDisplay: string[] = ['color', 'position', 'name', 'category', 'priority', 'date'];
   dataSource: MatTableDataSource<Task>;
 
@@ -50,7 +54,12 @@ export class TasksComponent implements OnInit {
     const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Редактирование задачи'], autoFocus: false });
     // When window is closed - this method runs and get result. 
     // We can make some actions or handle result (what we return from dialog window) in {}
-    dialogRef.afterClosed().subscribe(result =>{});
+    dialogRef.afterClosed().subscribe(result =>{
+      if (result as Task){
+        this.updateTask.emit(result);
+        return;
+      }
+    });
   }
 
   getPriorityColor(task: Task) {
