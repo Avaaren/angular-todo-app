@@ -44,8 +44,11 @@ export class TaskDAOImplement implements TaskDAO {
     get(id: number): Observable<Task> {
         throw new Error("Method not implemented.");
     }
-    update(id: number): Observable<Task> {
-        throw new Error("Method not implemented.");
+    update(task: Task): Observable<Task> {
+        const taskToDelete = TestData.tasks.find(t => t.id === task.id);
+        TestData.tasks.splice(TestData.tasks.indexOf(taskToDelete), 1, task);
+        return of (task);
+
     }
     delete(id: number): Observable<Task> {
         throw new Error("Method not implemented.");
