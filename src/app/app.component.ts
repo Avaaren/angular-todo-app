@@ -50,14 +50,17 @@ export class AppComponent implements OnInit{
   }
 
   onTaskDelete(task:Task){
-    this.dataHandler.deleteTask(task).subscribe( () => {
+    this.dataHandler.deleteTask(task).subscribe(task => {
       this.dataHandler.findTask(
         null,
         this.selectedCategory,
         null,
         null
-      ).subscribe(tasks => this.tasks = tasks)
-    })
+      ).subscribe(tasks => {
+
+        this.tasks=tasks;
+      });
+    });
   }
 
 }
