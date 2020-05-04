@@ -18,13 +18,14 @@ export class TasksComponent implements OnInit {
 
   // Every time when tasks changed we update data source and paginator with new data
   @Input('tasks')
-  private set setTasks(tasks: Task[]) {
+  set setTasks(tasks: Task[]) {
     this.tasks = tasks;
     this.fillTable();
   }
 
   @Output()
   updateTask = new EventEmitter<Task>();
+  @Output()
   deleteTask = new EventEmitter<Task>();
   
   columnsToDisplay: string[] = ['color', 'position', 'name', 'category', 'priority', 'date'];
@@ -57,8 +58,8 @@ export class TasksComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result =>{
       if (result == 'delete'){
         this.deleteTask.emit(task);
+        return;
       }
-
       if (result as Task){
         this.updateTask.emit(result);
         return;
