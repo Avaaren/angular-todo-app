@@ -17,8 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
+import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
 import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -43,6 +44,8 @@ import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confi
     MatIconModule,
     MatSelectModule,
     MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   entryComponents: [
